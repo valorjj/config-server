@@ -42,10 +42,6 @@ node {
             // 프로젝트를 빌드한다.
             sh 'chmod +x gradlew'
             sh "./gradlew clean jib -DREPO_URL=${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}"
-            
-            
-            
-
         }
     }
 
