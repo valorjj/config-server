@@ -37,6 +37,8 @@ node {
             // credHelper 를 통해서 Artifact Registry 에서 도커를 사용할 수 있게한다.
             sh 'gcloud auth configure-docker asia-northeast3-docker.pkg.dev'
 
+            sh 'echo hi'
+            
             // 프로젝트를 빌드한다.
             sh 'chmod +x gradlew'
             sh '''
