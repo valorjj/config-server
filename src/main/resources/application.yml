@@ -1,0 +1,25 @@
+server:
+  port: 9296
+spring:
+  application:
+    name: CONFIG-SERVER
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:valorjj/spring-app-config.git
+          ignore-local-ssh-settings: true
+          clone-on-start: true
+          host-key: AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+          host-key-algorithm: ssh-ed25519
+          private-key: |
+            -----BEGIN OPENSSH PRIVATE KEY-----
+            b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABDDlfzyW8
+            R8puKv/+QxtyDmAAAAEAAAAAEAAAAzAAAAC3NzaC1lZDI1NTE5AAAAILJKROkwBPLjli3x
+            nIYF/y6HJHMPLVZghypzyjRuO2AzAAAAoC0oARibU/8e5S1A00gSxFf/uGTgBTsa+C0dWr
+            0qjCvZbHV3zcujkZABmlIzdio66N/YpPJQgbJLU++7BGPvt6TBYmAtJRisTFmvJwD848AG
+            3VlrrqiHpnSLzpQLUqa56j9KHTmmLavpdzDJxC6i19PENHLk1zA5qvdh3dlll9MIUqu/g7
+            uZJr51lPK7jk4Sas7JYWeS6mqkUGmeHKxxvzE=
+            -----END OPENSSH PRIVATE KEY-----
+          timeout: 4
+          passphrase: spring
