@@ -23,15 +23,6 @@ node {
 
         // jenkins 에 등록한 gcp 인증 정보
         withCredentials([file(credentialsId: 'gcp', variable: 'GC_KEY')]) {
-            sh 'whoami'
-
-            // 해당 사용자가 도커를 사용할 권한을 얻도록 그룹에 추가한다.
-            // 터미널에서는 id 명령어로 확인할 수 있다.
-            // sh 'groupadd docker'
-            // sh 'usermod -a -G docker ${USER}'
-            // sh 'newgrp docker'
-            // sh 'id'
-
             // 젠킨스에 업로드한 서비스 계정의 자격증명을 통해 Artifact Registry 를 인증한다. 
             sh 'gcloud auth activate-service-account --key-file=${GC_KEY}'
             // credHelper 를 통해서 Artifact Registry 에서 도커를 사용할 수 있게한다.
@@ -47,12 +38,17 @@ node {
 
     stage('Deploy') {
         // replace a IMAGE_URL to gcp artifact registry url in deployment.yml
-        sh "sed -i 's|IMAGE_URL|${repourl}|g' k8s/deployment.yml"
+        sh "sed -i 's|IMAGE_URL|${repourl}|g' k8s/deployment.yaml"
+
+        sh "cat k8s/*.yml"
+
+        // Failed to initialize HTTP transport: hudson.AbortException: Could not retrieve credentials
+        // 
         step([$class: 'KubernetesEngineBuilder',
             projectId: env.PROJECT_ID,
             clusterName: env.CLUSTER,
             location: env.ZONE,
-            manifestPattern: 'k8s/deployment.yml',
+            manifestPattern: 'k8s/deployment.yaml',
             credentialsId: env.PROJECT_ID,
             verifyDeployments: true])
     }
