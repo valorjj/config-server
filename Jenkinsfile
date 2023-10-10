@@ -54,5 +54,5 @@ pipeline {
                 credentialsId: env.GOOGLE_SERVICE_ACCOUNT_CREDENTIAL,
                 verifyDeployments: true])
         }
-
+    }
 }
