@@ -3,7 +3,7 @@ pipeline {
     stages {
         // def repoURL = "${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}"
         parameters {
-            string(name: 'repoURL', defaultValue: "${REGISTRY_URL}\/${PROJECT_ID}\/${ARTIFACT_REGISTRY}")
+            string(name: 'repoURL', defaultValue: "${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}")
         }
         environments {
             GC_KEY = credentials('gcp')
