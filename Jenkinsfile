@@ -38,7 +38,7 @@ node {
 
     stage('Deploy') {
         // replace a IMAGE_URL to gcp artifact registry url in deployment.yml
-        sh "sed -i 's/IMAGE_URL/${repourl}/g' k8s/deployment.yaml"
+        sh "sed -i 's|IMAGE_URL|${repourl}|g' k8s/deployment.yaml"
 
         sh '''
         cd k8s
