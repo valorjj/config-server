@@ -38,9 +38,12 @@ node {
 
     stage('Deploy') {
         // replace a IMAGE_URL to gcp artifact registry url in deployment.yml
-        sh "sed -i 's|IMAGE_URL|${repourl}|g' k8s/deployment.yaml"
+        sh "sed -i 's/IMAGE_URL/${repourl}/g' k8s/deployment.yaml"
 
-        sh "ls -al"
+        sh '''
+        cd k8s
+        cat *.yaml
+        '''
 
         // Failed to initialize HTTP transport: hudson.AbortException: Could not retrieve credentials
         // 
