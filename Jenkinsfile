@@ -3,7 +3,7 @@ pipeline {
     parameters {
         string(name: 'repoURL', defaultValue: "${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}")
     }
-    environments {
+    environment {
         GC_KEY = credentials('gcp')
     }
     stages {
