@@ -1,13 +1,14 @@
 pipeline {
     agent any
+    parameters {
+        string(name: 'repoURL', defaultValue: "${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}")
+    }
+    environments {
+        GC_KEY = credentials('gcp')
+    }
     stages {
         // def repoURL = "${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}"
-        parameters {
-            string(name: 'repoURL', defaultValue: "${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}")
-        }
-        environments {
-            GC_KEY = credentials('gcp')
-        }
+        
         // 깃허브 repo 복사
         stage('Github-Checkout') {
             checkout([$class: 'GitSCM',
