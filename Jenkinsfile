@@ -22,38 +22,6 @@ node {
             // gradle 에서 jib 작동 확인
             // 프로젝트 빌드 후 .jar 파일 생성, (build.gradle 에 변수 할당)
             sh("./gradlew clean jib -DREPO_URL=${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}") 
-
-            // ================================== 에러 (해결) =======================================
-            // docker 를 사용할 권한이 없다.
-            // 현재 로그인 한 계정은 jenkins 로 나오고 이는 gcp 에서 실행하는 jenkins 에 로그인 할 때 생성한 계정이다.
-            // sudo 명령어를 사용할 수 없다.
-            // gcp 에서 ssh 로 로그인한 쉘에서 
-            // - docker 그룹 생성
-            // - jenkins 유저를 docker 그룹에 추가
-            // 해결
-
-            // 프로젝트를 빌드한다.
-            // sh "./gradlew clean build"
-            
-            // gcr 관련 문서 그대로 작성
-
-            // sh "gcloud container images list"
-
-            // sh '''
-            // docker tag config-server \
-            // asia-northeast3-docker.pkg.dev/alpine-guild-401310/spring-microservices/config-server:0.0.1
-            // '''
-
-            // sh '''
-            // gcloud artifacts repositories describe spring-microservices \
-            //     --project=alpine-guild-401310 \
-            //     --location=asia-northeast3
-            // '''
-
-            // sh '''
-            // docker push \
-            // asia-northeast3-docker.pkg.dev/alpine-guild-401310/spring-microservices/config-server:0.0.1
-            // '''
         }
     }
 
