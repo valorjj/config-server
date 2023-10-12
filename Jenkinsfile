@@ -19,7 +19,6 @@ node {
             sh("gcloud auth activate-service-account --key-file=${GC_KEY}")
             // credHelper 를 통해서 Artifact Registry 에서 도커를 사용할 수 있게한다.
             sh("gcloud auth configure-docker asia-northeast3-docker.pkg.dev")
-
             // gradle 에서 jib 작동 확인
             // 프로젝트 빌드 후 .jar 파일 생성, (build.gradle 에 변수 할당)
             sh("./gradlew clean jib -DREPO_URL=${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}") 
