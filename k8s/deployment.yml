@@ -1,3 +1,4 @@
+# @format
 ---
 ## Deployment
 
@@ -15,11 +16,18 @@ spec:
         app: config-server-app
     spec:
       containers:
-      - name: config-server-app
-        image: IMAGE_URL/config-server
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 9296
+        - name: config-server-app
+          image: IMAGE_URL/config-server
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9296
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "250m"
+            limits:
+              memory: "200Mi"
+              cpu: "500m"
 
 ---
 ## Service
@@ -32,5 +40,5 @@ spec:
   selector:
     app: config-server-app
   ports:
-  - port: 80
-    targetPort: 9296
+    - port: 80
+      targetPort: 9296
