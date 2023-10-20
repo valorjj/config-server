@@ -1,9 +1,7 @@
 node {
-    // GCR 주소를 환경변수로 주입받음
-    // 결과: asia-northeast3-docker.pkg.dev/alpine-guild-401310/spring-microservices
     def repoURL = "${REGISTRY_URL}/${PROJECT_ID}/${ARTIFACT_REGISTRY}"
 
-    stage('Checkout') {
+    stage('Github Repository Checkout') {
         checkout([$class: 'GitSCM',
             branches: [[name: '*/main']],
             extensions: [],
@@ -12,7 +10,7 @@ node {
         ])
     }
 
-    stage('Build and Push Image to Google Cloud') {
+    stage('Build and Push Image to Google Cloud Artifact Registry') {
         // jenkins 에 등록한 gcp 인증 정보
         withCredentials([file(credentialsId: 'gcp', variable: 'GC_KEY')]) {
             // 젠킨스에 업로드한 서비스 계정의 자격증명을 통해 Artifact Registry 를 인증한다. 
@@ -25,9 +23,9 @@ node {
         }
     }
 
-    stage('Deploy') {
+    stage('Deploy to GKE') {
         // 쿠버네티스 배포 파일에 변수 할당
-        sh("sed -i 's|IMAGE_URL|${repoURL}|g' k8s/deployment.yml") 
+        sh("sed -i 's|IMAGE_URL|${repoURL}|g' k8s/deployment.yml")
         
         step([$class: 'KubernetesEngineBuilder',
             projectId: env.PROJECT_ID,
