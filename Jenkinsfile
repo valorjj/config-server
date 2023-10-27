@@ -27,13 +27,15 @@ node {
         // 쿠버네티스 배포 파일에 변수 할당
         sh("sed -i 's|IMAGE_URL|${repoURL}|g' k8s/deployment.yml")
         
-        step([$class: 'KubernetesEngineBuilder',
+        step(
+            [$class: 'KubernetesEngineBuilder',
             projectId: env.PROJECT_ID,
             clusterName: env.CLUSTER,
             location: env.ZONE,
             manifestPattern: 'k8s/deployment.yml',
-            credentialsId: env.PROJECT_ID,
-            verifyDeployments: true])
+            credentialsId: env.GOOGLE_SERVICE_ACCOUNT_CREDENTIAL,
+            verifyDeployments: true]
+        )
 
     }
 }
