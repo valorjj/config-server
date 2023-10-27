@@ -32,7 +32,8 @@ node {
             clusterName: env.CLUSTER,
             location: env.ZONE,
             manifestPattern: 'k8s/deployment.yml',
-            credentialsId: env.GOOGLE_SERVICE_ACCOUNT_CREDENTIAL,
+            credentialsId: env.PROJECT_ID,
             verifyDeployments: true])
+
     }
 }
